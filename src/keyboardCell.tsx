@@ -1,3 +1,9 @@
+/*
+ * @Date: 2024-05-07 11:55:50
+ * @LastEditors: dengxin 994386508@qq.com
+ * @LastEditTime: 2024-05-07 11:56:49
+ * @FilePath: /vehicle-plate-keyboard/src/keyboardCell.tsx
+ */
 import * as React from 'react';
 
 interface KeyboardCellProps {
@@ -17,12 +23,13 @@ const TypeToStyle: { [key in keyboardCellType]: string } = {
 };
 
 const KeyboardCell = React.memo((props: KeyboardCellProps) => {
-  const handleClick = () => {
+  const handleTouchEnd = (e:any) => {
+    e.preventDefault();
     if (!props.disabled && typeof props.onClick === 'function') {
       props.onClick(props.cell);
     }
   };
-
+  
   return (
     <section
       className={`${'keyboard-cell'} ${TypeToStyle[props.type]} ${
@@ -31,7 +38,7 @@ const KeyboardCell = React.memo((props: KeyboardCellProps) => {
       aria-disabled={props.disabled}
       aria-label={props.cell}
       role="button"
-      onClick={handleClick}
+      onTouchEnd={handleTouchEnd}
     >
       <span style={props.cellTextStyle} className="cell-text">
         {props.cell}
